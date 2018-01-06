@@ -740,6 +740,9 @@ void MapDHandler::get_completion_hints(std::vector<TCompletionHint>& hints,
   // Not much information to use, just retrieve all table and column names which match the prefix.
   get_column_hints(hints, last_word, column_names_by_table);
   get_table_hints(hints, last_word, column_names_by_table);
+  if (hints.empty()) {
+    hints = get_keyword_hints(last_word);
+  }
 }
 
 std::unordered_map<std::string, std::unordered_set<std::string>> MapDHandler::fill_column_names_by_table(

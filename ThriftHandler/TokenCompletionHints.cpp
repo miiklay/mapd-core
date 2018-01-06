@@ -145,3 +145,22 @@ void get_table_hints(std::vector<TCompletionHint>& hints,
     hints.push_back(table_hint);
   }
 }
+
+std::vector<TCompletionHint> get_keyword_hints(const std::string& keyword_prefix) {
+  std::vector<TCompletionHint> keywords;
+  auto make_keyword_hint = [&keyword_prefix](const std::string& keyword) {
+    TCompletionHint keyword_hint;
+    keyword_hint.type = TCompletionHintType::KEYWORD;
+    keyword_hint.replaced = keyword_prefix;
+    keyword_hint.hints.emplace_back(keyword);
+    return keyword_hint;
+  };
+  const std::string kSelectKeyword{"SELECT"};
+  const std::string kFromKeyword{"FROM"};
+  if (boost::istarts_with(kSelectKeyword, keyword_prefix)) {
+    keywords.push_back(make_keyword_hint(kSelectKeyword));
+  } else if (boost::istarts_with(kFromKeyword, keyword_prefix)) {
+    keywords.push_back(make_keyword_hint(kFromKeyword));
+  }
+  return keywords;
+}

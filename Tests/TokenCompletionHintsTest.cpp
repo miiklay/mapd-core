@@ -169,6 +169,21 @@ TEST(Completion, FilterKeywords) {
   ASSERT_EQ(expected_filtered_hints, filtered_hints);
 }
 
+TEST(Completion, Keywords) {
+  {
+    const std::string keyword_prefix{"sel"};
+    const auto completion_hints = get_keyword_hints(keyword_prefix);
+    ASSERT_EQ(keyword_prefix, completion_hints.front().replaced);
+    assert_set_equals({"SELECT"}, completion_hints.front().hints);
+  }
+  {
+    const std::string keyword_prefix{"fr"};
+    const auto completion_hints = get_keyword_hints(keyword_prefix);
+    ASSERT_EQ(keyword_prefix, completion_hints.front().replaced);
+    assert_set_equals({"FROM"}, completion_hints.front().hints);
+  }
+}
+
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
