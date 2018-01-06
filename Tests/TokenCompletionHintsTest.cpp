@@ -33,6 +33,11 @@ TEST(FindLastWord, CursorPastEnd) {
   ASSERT_EQ("", find_last_word_from_cursor(partial_query, partial_query.size() + 1));
 }
 
+TEST(FindLastWord, CursorInside) {
+  std::string partial_query{"SELECT str FROM te LIMIT 10"};
+  ASSERT_EQ("te", find_last_word_from_cursor(partial_query, 18));
+}
+
 TEST(FindLastWord, EmptyString) {
   ASSERT_EQ("", find_last_word_from_cursor("", 0));
   ASSERT_EQ("", find_last_word_from_cursor("", 1));

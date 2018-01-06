@@ -56,7 +56,7 @@ std::string find_last_word_from_cursor(const std::string& sql, const ssize_t cur
   if (quoted && (word_end < static_cast<ssize_t>(sql.size())) && (sql[word_end] == '"')) {
     ++word_end;
   }
-  std::string last_word(sql.begin() + word_start + (quoted ? 1 : 0), sql.begin() + word_end);
+  std::string last_word(sql.begin() + word_start + (quoted ? 1 : 0), sql.begin() + cursor);
   return last_word;
 }
 
